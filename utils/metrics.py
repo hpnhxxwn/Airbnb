@@ -21,8 +21,11 @@ def dcg_score(y_true, y_score, k=5):
     y_true = np.take(y_true, y_predict_rank[:k])
 
     gain = 2 ** y_true - 1
-
+    #print("gain is ")
+    #print(gain)
+    
     discounts = np.log2(np.arange(len(y_true)) + 2)
+    #print(discounts)
     return np.sum(gain / discounts)
 
 
@@ -54,15 +57,23 @@ def ndcg_score(ground_truth, predictions, k=5):
     0.6666666666
     """
     lb = LabelBinarizer()
-    lb.fit(range(len(predictions) + 1))
-    T = lb.transform(ground_truth)
 
+    lb.fit(range(len(predictions) + 1))
+    T = lb.transform(ground_truth) + 1
+    #print(T)
+    #print(predictions + 1)
     scores = []
+    #pred = predictions + 1
 
     # Iterate over each y_true and compute the DCG score
     for y_true, y_score in zip(T, predictions):
+        #print("actual score is ")
         actual = dcg_score(y_true, y_score, k)
+        #print(y_true)
+        #print(y_score)
+        #print("best score is ")
         best = dcg_score(y_true, y_true, k)
+        #print(best)
         score = float(actual) / float(best)
         scores.append(score)
 

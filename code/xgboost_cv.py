@@ -59,6 +59,6 @@ if __name__ == '__main__':
 
     print(xgb.get_params(), score.mean())
     print (score)
-
+    xgb.fit(x_train, encoded_y_train)
     print ('@@@@@@@@@@@@@')
     print (xgb.predict(x_train))

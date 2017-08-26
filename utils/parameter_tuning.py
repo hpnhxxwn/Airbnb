@@ -21,6 +21,8 @@ if __name__ == "__main__":
     x_train = train_users.values
     label_encoder = LabelEncoder()
     encoded_y_train = label_encoder.fit_transform(y_train)
+    print("encoded_y_train is ")
+    print(encoded_y_train)
 
     test_users_ids = test_users['id']
     test_users.drop('id', axis=1, inplace=True)
@@ -30,10 +32,10 @@ if __name__ == "__main__":
 
     model = XGBClassifier()
     max_depth_values = [5, 6, 7]
-    learning_rate_values = [0.1, 0.15, 0.2, 0.25, 0.3]
-    subsample_values = [0.7]
-    colsample_bytree_values = [0.7]
-    n_estimators = [100] #, 200
+    learning_rate_values = [0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4]
+    subsample_values = [0.7, 0.8, 0.9, 1]
+    colsample_bytree_values = [0.7, 0.8, 0.9, 1]
+    n_estimators = [25, 50, 100] #, 200
     # gamma = [0]
     params = {'max_depth' : max_depth_values, 'learning_rate': learning_rate_values, 
 	          'subsample': subsample_values, 'colsample_bytree': colsample_bytree_values,
@@ -41,11 +43,14 @@ if __name__ == "__main__":
 	          #'gamma': gamma,
 	          #'min_child_weight': min_child_weight
 	         }
-    print ("begin to do grid search to pick the best parametere")
+    print ("begin to do grid search to pick the best parametere\n")
     clf = gs.GridSearchCV(model, params, scoring=ndcg_scorer, cv=5)
 
-    clf.fit(x_train, y_train)
-
-    clf.grid_scores_
-
-    clf.best_params_
+    clf.fit(x_train, encoded_y_train)
+    print("@@@@@@@@@@@@@@ Grid Scores @@@@@@@@@@@@@@\n")
+    for score in clf.grid_scores_:
+        print(score)
+    print("@@@@@@@@@@@@@@ Best Parameters @@@@@@@@@@@@@@\n")
+    print(clf.best_params_)
+    print("@@@@@@@@@@@@@@ Best Score @@@@@@@@@@@@@@\n")
+    print(clf.best_score_)
