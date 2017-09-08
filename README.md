@@ -3,6 +3,8 @@ Link for the input data
 ```
 https://www.kaggle.com/c/airbnb-recruiting-new-user-bookings/data
 ```
+Requred python library
+-xgboost
 
 Make a new directory input and put all the data in this directory. Also create directories feature_engineer_processed and preprocessed.
 ```
@@ -11,7 +13,7 @@ mkdir preprocessed
 mkdir feature_engineer_processed
 ```
 
-## Pre-process raw data:
+### Pre-process raw data:
 ```
 python code/feature_engineer.py  -p input
 ```
