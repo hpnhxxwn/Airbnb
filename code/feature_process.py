@@ -56,7 +56,7 @@ if __name__ == '__main__':
     train_users.to_csv('preprocessed/train_users.csv')
     test_users.to_csv('preprocessed/test_users.csv')
 
-    sessions = pd.read_csv("/Users/hpnhxxwn/Desktop/proj/Airbnb/input/sessions.csv")
+    sessions = pd.read_csv(path + "/sessions.csv")
     categorical_features_sessions = ['action', 'action_type', 'action_detail', 'device_type']
 
     sessions_ohe = one_hot_encoding(sessions, categorical_features_sessions)
