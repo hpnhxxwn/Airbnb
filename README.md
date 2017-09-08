@@ -11,6 +11,7 @@ xgboost
 Make a new directory input and put all the data in this directory. Also create directories feature_engineer_processed and preprocessed.
 ```
 mkdir input
+ln -s input/train_users_2.csv input/train_users.csv
 mkdir preprocessed
 mkdir feature_engineer_processed
 ```
